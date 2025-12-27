@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You make my world brighter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-soft: #ff84a8;
+            --pink-dark: #FF69B4;
+            --indigo-light: #7b68ee;
+            --pista-green: #98fb98;
+            --text-light: #fce7f3;
+        }
+        body {
+            font-family: 'Dancing Script', cursive;
+            background-color: #1a0a2f;
+            background-image: linear-gradient(135deg, #1A0A2F 0%, #2b114d 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        /* Floating particles */
+        .floating-particle {
+            position: absolute;
+            background-color: var(--text-light);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-and-fade linear infinite;
+        }
+
+        @keyframes float-and-fade {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Glowing text effect */
+        .glowing-text {
+            text-shadow: 0 0 10px var(--pink-soft), 0 0 20px var(--pink-soft), 0 0 30px var(--pink-dark);
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--pink-soft), 0 0 20px var(--pink-soft); }
+            to { text-shadow: 0 0 20px var(--pink-soft), 0 0 30px var(--pink-dark), 0 0 40px var(--pink-dark); }
+        }
+
+        /* Button glow effect */
+        .glowing-btn {
+            box-shadow: 0 0 10px var(--pista-green), 0 0 20px var(--pista-green), 0 0 30px var(--pista-green);
+            transition: all 0.3s ease;
+        }
+        .glowing-btn:hover {
+            box-shadow: 0 0 15px var(--pista-green), 0 0 30px var(--pista-green), 0 0 50px var(--pista-green);
+            transform: scale(1.05);
+        }
+
+        /* Typewriter effect */
+        .typewriter-text {
+            border-right: 2px solid rgba(255, 255, 255, .75);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 4s steps(60, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: rgba(255, 255, 255, .75) }
+        }
+        
+        /* Confetti animation */
+        .confetti-heart {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+            animation: confetti-fall linear forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) scale(1.5) rotate(720deg); opacity: 0; }
+        }
+        
+        /* Background silhouette */
+        .couple-silhouette {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            z-index: -1;
+            animation: float-and-glow 10s infinite ease-in-out;
+        }
+        @keyframes float-and-glow {
+            0% { transform: translateX(-50%) translateY(0); opacity: 0.2; }
+            50% { transform: translateX(-50%) translateY(-20px); opacity: 0.5; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 0.2; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen">
+    
+    <!-- Couple silhouette in the background -->
+    <div class="couple-silhouette">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="currentColor" class="text-indigo-600">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+                    <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <path d="M100,20 C55,20 20,55 20,100 C20,145 55,180 100,180 C145,180 180,145 180,100 C180,55 145,20 100,20 Z" filter="url(#glow)"/>
+        </svg>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-8 max-w-6xl">
+        <!-- Welcome Section -->
+        <section class="text-center my-16">
+            <h1 class="text-4xl md:text-7xl font-bold glowing-text">You make my world brighter ❤️</h1>
+        </section>
+
+        <!-- About You & Me Section -->
+        <section class="bg-white/10 backdrop-blur-md rounded-3xl p-8 mb-16 shadow-lg relative overflow-hidden">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center">About You & Me</h2>
+            <p class="text-lg md:text-xl text-center">
+                Ammu From the moment we met, my life has been filled with so much more joy. It feels like our story is just beginning, and I can't wait to see where it takes us.
+            </p>
+            <div id="floating-hearts-container" class="absolute inset-0 z-0 pointer-events-none"></div>
+        </section>
+
+        <!-- Memories / Moments Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-8">Memories / Moments</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:scale-105">
+                    <img src="tthps://placehold.co/400x400/FF69B4/FFFFFF?text=Cute+Text+Message" alt="Placeholder for a cute text" class="w-full h-auto rounded-xl mb-4">
+                    <p class="text-lg text-center">"Thinking of you" texts that make me smile for hours.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:scale-105">
+                    <img src="https://placehold.co/400x400/7B68EE/FFFFFF?text=First+Date+Memory" alt="Placeholder for a first date memory" class="w-full h-auto rounded-xl mb-4">
+                    <p class="text-lg text-center">Our first date, where time just seemed to fly by.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-lg transition-transform duration-300 hover:scale-105">
+                    <img src="https://placehold.co/400x400/98FB98/FFFFFF?text=Laughter+Quote" alt="Placeholder for a funny moment" class="w-full h-auto rounded-xl mb-4">
+                    <p class="text-lg text-center">Your laugh is my favorite sound in the whole world.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- A Message for You Section -->
+        <section class="bg-white/10 backdrop-blur-md rounded-3xl p-8 mb-16 shadow-lg">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center">A Message for You</h2>
+            <p id="love-letter" class="text-lg md:text-xl leading-relaxed text-center min-h-[100px] typewriter-text"></p>
+        </section>
+
+        <!-- Ending Note Section -->
+        <section class="text-center my-16">
+            <button id="ending-btn" class="bg-pink-dark text-white font-bold py-4 px-8 rounded-full text-2xl transition-all duration-300 glowing-btn">
+                Forever Yours 💕
+            </button>
+        </section>
+    </main>
+
+    <script>
+        // Floating particles background animation
+        function createParticles() {
+            const body = document.body;
+            const colors = ['#fce7f3', '#ffc0cb', '#ffb6c1', '#7b68ee', '#98fb98'];
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                particle.style.width = `${Math.random() * 5 + 2}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.bottom = `-${Math.random() * 20}px`;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                body.appendChild(particle);
+            }
+        }
+        
+        // Floating hearts animation for About section
+        function createFloatingHearts() {
+            const container = document.getElementById('floating-hearts-container');
+            const colors = ['#FF69B4', '#ff84a8', '#ffc0cb'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('span');
+                heart.classList.add('floating-heart', 'absolute', 'text-2xl', 'opacity-0');
+                heart.innerHTML = '❤️';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.bottom = `-${Math.random() * 50}px`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+                container.appendChild(heart);
+                
+                // Use JS to trigger the animation since the CSS keyframe is not global
+                heart.style.animationName = 'float-up';
+            }
+        }
+
+        // Typewriter effect function
+        const loveLetterText = "To the one who makes my world brighter, I wanted to create this little space just for you. Every moment we spend together is a treasure, and you inspire me in more ways than I can count. Your smile, your kindness, your presence—it all brings so much warmth to my life. I am so lucky to know you. This is just a small gesture to say, I'm thinking of you and you're always on my mind.";
+        const loveLetterElement = document.getElementById('love-letter');
+
+        function typeWriter(text, element, i, callback) {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                setTimeout(() => typeWriter(text, element, i + 1, callback), 50);
+            } else if (callback) {
+                callback();
+            }
+        }
+        
+        // Confetti animation for hearts
+        function createHeartConfetti() {
+            const colors = ['#FF69B4', '#ff84a8', '#ffc0cb', '#7b68ee'];
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('span');
+                heart.classList.add('confetti-heart');
+                heart.innerHTML = '❤️';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(heart);
+            }
+        }
+
+        // Initial setup and event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            createFloatingHearts();
+            // Start typewriter animation on page load
+            setTimeout(() => {
+                typeWriter(loveLetterText, loveLetterElement, 0);
+            }, 1000);
+        });
+
+        document.getElementById('ending-btn').addEventListener('click', () => {
+            createHeartConfetti();
+        });
+    </script>
+</body>
+</html>
